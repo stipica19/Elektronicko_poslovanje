@@ -1,0 +1,55 @@
+     <!-- <div class="product-item">
+              
+              <img src="/public/<%= p.images%>"  alt="slika">
+              <div class="down-content">
+                  <h4>Lokacija: <%= p.id_lokacija.grad %> </h4>
+                  <h7>Dimenzije: <%= p.dimenzija %> </h7><br>
+                  <h7>Cijena : <%= p.pocetna_cijena %> </h7><br>
+                  <h7>Broj slobodnih mjesta:  <%= p.brojMjesta %> </h7><br><br>
+                  <p>Opis: <%= p.opis %> </p>
+                <a href="/panel/<%= p._id %>">
+                    <button class="button">Rezerviraj</button>
+                  </a>
+              </div>
+            </div> -->
+
+
+            <table class="table">
+              <thead>
+                  <tr>
+                      <th scope="col">NAZIV</th>
+                      <th scope="col">ŽANR</th>
+                      
+                  </tr>
+              </thead>
+  
+            <tbody>
+              <tr><% panel.forEach((p)=>{%>
+                 
+              <tr>
+                  <td><%= p.id_lokacija.grad %></td>
+                  <td> <%= p.dimenzija %></td>
+                  
+                  
+  
+                  <td><button class="brisi btn btn-danger" 
+                          >Brisi</button>
+                  </td>
+              </tr>
+              <% });%>
+              </tr>
+          </tbody>
+          </table>
+
+          const rez =  Rezervacija.findById("6148dfdb8b0fbb1ee0ef024c").then(
+            (doc) => {
+              gotovaRezervacija
+                .insertMany([doc])
+                .then((d) => {
+                  console.log("YESSSSSSSSSS");
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+            }
+          );

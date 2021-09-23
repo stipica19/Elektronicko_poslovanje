@@ -1,0 +1,109 @@
+<%- include ('partials/header.ejs') %>
+
+  </head>
+
+  <body>
+
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>  
+    <!-- ***** Preloader End ***** -->
+
+    <!-- Header -->
+    <header class="">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand" href="/"><h2>Paneli za <em>Reklame</em></h2></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/">Naslovna
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li> 
+              <% if(!user){ %>
+                <li class="nav-item">
+                  <a class="nav-link" href="/login">Login</a>
+                </li>
+                <% } else {%>
+                  <li class="nav-item">
+                    <div class="dropdown">
+                   <button class="dropbtn"> <%= user.name %></button>
+                   <div class="dropdown-content">
+                     <a href="/users/profile">Profil</a>
+                     <a href="/logout">Odjava</a>
+                     
+                   </div>
+                 </div>
+                 </li>
+                  <% } %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+<br><br><br><br><br><br><br><br>
+<% if(panel){%>
+
+          <div class="col-md-12">
+            <div class="product-item col-md-12">
+              <img src="/public/<%= panel.images%>" class="col-md-3"  alt="slika">
+              <div class="down-content col-md-4">
+                <h4>Lokacija: <%= panel.id_lokacija.grad %> </h4>
+                <h7>Dimenzije: <%= panel.dimenzija %>m </h7><br>
+                <h7>Cijena po mjesecu: <%= panel.pocetna_cijena %> KM </h7><br>
+                <h7>Broj slobodnih mjesta:   <%= panel.brojMjesta %></h7><br><br>
+				<p>Opis:<%= panel.opis %> </p>
+              </div>
+            </div>
+          </div>  
+          <% };%>
+	
+   <form action="/panel/<%= panel._id%>" method="POST" style="margin:10px;">
+   
+  <div class="form-group">
+  <label>
+      Od:
+    <input id="odDatuma" type="date" name="odDatuma" min="2021-09-10" max="2022-12-12" required>
+    <span class="validity"></span>
+  </label>
+    </div>
+	<div class="form-group">
+	<label>
+      Do:
+    <input  id="doDatuma" type="date" name="doDatuma" min="2021-09-01" max="2022-12-12" required>
+    <span   class="validity"></span>
+  </label>
+  
+    </div>
+    <h4>UKUPNA CIJENA REZERAVIJE :  </h4> <h4 name="ukupna_cijena" class="ukupna_cijena"></h4>
+   <div class="form-group">
+      
+      <input type="number" min="0.00" max="10000.00" class="form-control" id="cijenaa" name="ukupna_cijena" placeholder="Cijena">
+    </div>
+   
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<div id="paypal-button"></div>
+
+
+
+
+
+<p id="demo"></p>
+
+
+
+
+
+<%- include ('partials/footer.ejs') %>

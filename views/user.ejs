@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+ <html lang="en" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="UTF-8" />
+        <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
+        <title>User panel</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <meta name="description" content="Login and Registration Form with HTML5 and CSS3" />
+        <meta name="keywords" content="html5, css3, form, switch, animation, :target, pseudo-class" />
+        <meta name="author" content="Codrops" />
+        <link rel="shortcut icon" href="../favicon.ico"> 
+        <link rel="stylesheet" type="text/css" href="../public/assets/css/demo.css" />
+        <link rel="stylesheet" type="text/css" href="../public/assets/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../public/assets/css/animate-custom.css" />
+	 <link href="../public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../public/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="../public/assets/css/templatemo-sixteen.css">
+    <link rel="stylesheet" href="../public/assets/css/owl.css">
+    <link rel="stylesheet" href="../public/assets/css/user.css">
+  
+    </head>
+    <body>
+	
+	    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>  
+    <!-- ***** Preloader End ***** -->
+    <!-- Header -->
+    <header class="">
+
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand" href="/"><h2>Paneli za <em>Reklame</em></h2></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/">Naslovna
+                </a>
+              </li> 
+              <% if(!user){ %>
+                <li class="nav-item">
+                  <a class="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
+                  
+                </li>
+                <% } else {%>
+                  <% if(user.isAdmin){ %>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/admin/addpanel">Admin Panel</a>
+                    </li>
+                    <% } %>
+                  <li class="nav-item">
+                    <div class="dropdown">
+                   <button class="dropbtn"> <%= user.name %></button>
+                   <div class="dropdown-content">
+                     <a href="/users/profile">Profil</a>
+                     <a href="/logout">Odjava</a>
+                     
+                   </div>
+                 </div>
+                 </li>
+                  <% } %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    
+    </header>
+	
+        <div class="container">
+            <!-- Codrops top bar -->
+          <br><br><br><br><br><br>
+       
+            <section>				
+
+				<div class="container">
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+        <div class="panel panel-white profile-widget">
+            <div class="row">
+                <div class="col-sm-12">
+                    
+                </div>
+                <% if(user){ %>
+                <div class="col-sm-12" style="background-color:#f0f8ff;">
+                    <div class="details">
+                        <h4><%= user.name %> <i class="fa fa-sheild"></i></h4>
+                        <div><%= user.email %> </div>
+					       <br>
+						 <a href="/user_profile_edit/<%= user._id %> " class="btn btn-green btn-sm">Edit</a>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+        </div>
+        
+    <div class="row">    	
+      <h2>AKTIVNE REZERVACIJE</h2>	
+    <table class="table table-hover">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">Dimenzija</th>
+      <th scope="col">Lokacija</th>
+	  <th scope="col">Trajanje</th>
+      <th scope="col">Cijena</th>
+      <th scope="col">Izbrisi</th>
+    </tr>
+    </thead>
+    <tbody style="background-color:#f0f8ff;">
+      <% rezervacija.forEach((p)=>{%>
+    <tr>
+      <td> <%= p.panel.dimenzija %></td>
+      <td><%= p.panel.id_lokacija.grad %></td>
+	  <td><%= p.odDatuma.toLocaleDateString('en-GB') %> do <%= p.doDatuma.toLocaleDateString('en-GB') %></td>
+      <td><%= p.cijena %> KM</td>
+      <form action="/users/<%= p._id %>?_method=DELETE" method="post" >
+        <td><button type="submit" class="btn btn-danger btn-sm">Spremi</button></td>
+        
+      </form>
+      
+    </tr>
+    <% });%>
+    </tbody>
+    </table>	   
+    </div>
+    <div class="row">    	
+      <h2>Zavrsene REZERVACIJE</h2>	
+    <table class="table table-hover">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">Dimenzija</th>
+      <th scope="col">Lokacija</th>
+	  <th scope="col">Trajanje</th>
+      <th scope="col">Cijena</th>
+      <th scope="col">Edit</th>
+    </tr>
+    </thead>
+    <tbody style="background-color:#f0f8ff;">
+      <% old.forEach((p)=>{%>
+    <tr>
+      <td> <%= p.dimenzija %></td>
+      <td><%= p.grad %></td>
+	  <td><%= p.odDatuma.toLocaleDateString('en-GB') %> do <%= p.doDatuma.toLocaleDateString('en-GB') %></td>
+      <td><%= p.cijena %> KM</td>
+      <td><a href="#" class="btn btn-green btn-sm">Edit</a></td>
+    </tr>
+    <% });%>
+    </tbody>
+    </table>	   
+    </div>
+  </div>
+ </div>
+ </section>
+  </div>
+<footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="inner-content">
+              <p> &copy; 2021 Elektorničko Poslovanje
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+<%- include ('partials/footer.ejs') %>

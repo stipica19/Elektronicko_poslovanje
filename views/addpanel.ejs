@@ -1,0 +1,93 @@
+<%- include ('partials/header.ejs') %>
+</head>
+  <body>
+
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>  
+    <!-- ***** Preloader End ***** -->
+
+    <!-- Header -->
+    <header class="">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand" href="/"><h2>Paneli za <em>Reklame</em></h2></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/">Naslovna
+                </a>
+              </li> 
+              <% if(!user){ %>
+                <li class="nav-item">
+                  <a class="nav-link" href="/login">Login</a>
+                </li>
+                <% } else {%>
+                  <% if(user.isAdmin){ %>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/admin/addpanel">Admin Panel 
+                       <span class="sr-only">(current)</span>
+                      </a>                   
+                  </li>
+                  <% } %>
+                  <li class="nav-item">
+                    <div class="dropdown">
+                   <button class="dropbtn"> <%= user.name %></button>
+                   <div class="dropdown-content">
+                     <a href="/users/profile">Profil</a>
+                     <a href="/logout">Odjava</a>
+                     
+                   </div>
+                 </div>
+                 </li>
+                  <% } %>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+<br><br><br><br><br><br><br><br>
+
+   <form  action="/admin/addpanel" method="post" enctype="multipart/form-data"  style="margin:10px;">
+   	<h1>Dodaj panel</h1><br>
+  <div class="form-group">
+    <label for="dimenzija">Dimenzija panela</label>
+    <input type="text" class="form-control" name="dimenzija" id="dimenzija" placeholder="Opis dimenzija">
+  </div >
+ 
+    <div>
+      <select name="id_lokacija">
+        <option value="" disabled selected>Odaberite lokaciju</option>
+        <% locations.forEach((p)=>{%>
+        <option value="<%= p._id %>" name="id_lokacija"> <%= p.grad %>  </option>
+        <% });%>
+    </select>
+    </div>  
+    <div class="form-group">
+      <label for="pocetna_cijena">Pocetna cijena</label>
+      <input type="number" class="form-control" id="pocetna_cijena" name="pocetna_cijena" placeholder="Pocetna cijena">
+    </div>
+ 
+  <div class="form-group">
+    <label for="broj_mjesta">Broj mjesta</label>
+    <input type="number" class="form-control" id="broj_mjesta" name="brojMjesta" placeholder="Broj mjesta">
+  </div>
+  <div class="form-group">
+    <label for="opis">Opis</label>
+    <input type="text" class="form-control" id="opis" name="opis" placeholder="Opis">
+  </div>
+   <div class="form-group">
+    <label for="slika">Odaberi sliku</label>
+    <input type="file" class="form-control" id="images" name="images" placeholder="Unos slike" />
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+    <%- include ('partials/footer.ejs') %>

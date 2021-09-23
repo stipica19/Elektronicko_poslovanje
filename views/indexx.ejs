@@ -1,0 +1,160 @@
+
+<%- include ('partials/header.ejs') %>
+
+  </head>
+
+  <body>
+
+    <!-- ***** Preloader Start ***** -->
+    <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>  
+    <!-- ***** Preloader End ***** -->
+
+    <!-- Header -->
+    <header class="">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand" href="/"><h2>Paneli za <em>Reklame</em></h2></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/">Naslovna
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li> 
+              <% if(!user){ %>
+              <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+              </li>
+              <% } else {%>
+                <% if(user.isAdmin){ %>
+                <li class="nav-item">
+                  <a class="nav-link" href="/admin/addpanel">Admin Panel</a>
+                </li>
+                <% } %>
+                <li class="nav-item">
+                  <div class="dropdown">
+                 <button class="dropbtn"> <%= user.name %></button>
+                 <div class="dropdown-content">
+                   <a href="/users/profile">Profil</a>
+                   <a href="/logout">Odjava</a>
+                   
+                 </div>
+               </div>
+               </li>
+                <% } %>
+
+          
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Page Content -->
+    <!-- Banner Starts Here -->
+    <div class="banner header-text">
+      <div class="owl-banner owl-carousel">
+	      <div class="banner-item-01">
+          <div class="text-content">
+            <h4>Brza rezervacija</h4>
+            <h2>Ispunite formu za rezervaciju</h2>
+          </div>
+        </div>
+        <div class="banner-item-02">
+          <div class="text-content">
+            <h4>Najbolja ponuda</h4>
+            <h2>Nove vrste panela</h2>
+          </div>
+        </div>
+        <div class="banner-item-03">
+          <div class="text-content">
+            <h4>Više lokacija</h4>
+            <h2>Sami birate lokaciju</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Banner Ends Here -->
+
+    <div class="latest-products">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="section-heading"> 
+              <h2>Lista panela</h2>
+            </div>
+            <div class="form-group">
+              <label for="broj_mjesta">Pretrazi lokaciju : </label>
+              <input type="text" name="search_text" id="search_text" class="form-control"  placeholder="Pretrazi lokaciju">
+            </div>
+          </div>
+         
+          <div class="col-md-4">
+                <div class="product-item">
+                  <% panel.forEach((p)=>{%>
+                  <img src="/public/<%= p.images%>"  alt="slika">
+                  <div class="down-content">
+                      <h4>Lokacija: <%= p.id_lokacija.grad %> </h4>
+                      <h7>Dimenzije: <%= p.dimenzija %> </h7><br>
+                      <h7>Cijena : <%= p.pocetna_cijena %> </h7><br>
+                      <h7>Broj slobodnih mjesta:  <%= p.brojMjesta %> </h7><br><br>
+                      <p>Opis: <%= p.opis %> </p>
+                    <a href="/panel/<%= p._id %>">
+                        <button class="button">Rezerviraj</button>
+                      </a>
+                      <% if(user && user.isAdmin){ %>
+                      <a href="/admin/panel_edit/<%= p._id %>">
+                        <button class="button" style="background-color: #27c500;">Uredi</button>
+                      </a>
+                      
+                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Izbriši
+                  </button>
+                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          ...
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <form action="/admin/panel_edit/<%= p._id %>?_method=DELETE" method="post">
+                            <button class="button" style="background-color: #ff1e1e;">Izbriši</button>
+                       </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div> 
+                      
+                      <% }%>
+                  </div> <% });%>
+                 
+                </div> 
+          </div>
+     
+         
+
+         
+        </div>
+      </div>
+    </div>
+    
+ 
+      
+  
+    <%- include ('partials/footer.ejs') %>
