@@ -92,21 +92,29 @@
             <div class="section-heading"> 
               <h2>Lista panela</h2>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-4">
               <label for="broj_mjesta">Pretrazi lokaciju : </label>
               <input type="text" name="search_text" id="search_text" class="form-control"  placeholder="Pretrazi lokaciju">
             </div>
           </div>
          
-          <div class="col-md-4">
-                <div class="product-item">
-                  <% panel.forEach((p)=>{%>
-                  <img src="/public/<%= p.images%>"  alt="slika">
-                  <div class="down-content">
-                      <h4>Lokacija: <%= p.id_lokacija.grad %> </h4>
-                      <h7>Dimenzije: <%= p.dimenzija %> </h7><br>
+          <div class="row">
+            <div class="product-item col-md-12">
+             <% panel.forEach((p)=>{%>
+              <div class="row" style="margin-bottom: 20px;">
+                  <div  class="col-md-6 float-left ">
+                    <img src="/public/<%= p.images%>"  alt="slika" />
+                  </div>
+                  <div class="col-md-6 float-right">
+                      <h4>Lokacija: <%= p.id_lokacija.grad %>  <%= p.id_lokacija.adresa %> </h4>
+                      <h7>Dimenzija: <%= p.dimenzija %> </h7><br>
                       <h7>Cijena : <%= p.pocetna_cijena %> </h7><br>
-                      <h7>Broj slobodnih mjesta:  <%= p.brojMjesta %> </h7><br><br>
+                      <%if(p.brojMjesta ===0){%>
+                        <h7 style="color: red; font-weight:bold;">Broj slobodnih mjesta: je popunjen </h7>
+                        <%}else{%>
+                          <h7>Broj slobodnih mjesta:  <%= p.brojMjesta %>  </h7>
+                        
+                          <%}%><br><br>
                       <p>Opis: <%= p.opis %> </p>
                     <a href="/panel/<%= p._id %>">
                         <button class="button">Rezerviraj</button>
@@ -116,43 +124,52 @@
                         <button class="button" style="background-color: #27c500;">Uredi</button>
                       </a>
                       
-                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                   <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
                     Izbriši
                   </button>
-                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+
+                  <div class="modal fade"  id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" style="padding-top: 100px;" role="document">
+                      <div class="modal-content" style="z-index: 0;">
+                        <div class="modal-header" style="z-index: 0;">
+                          <h5 class="modal-title" id="exampleModalLabel">Potvrda brisanja</h5>
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
                         <div class="modal-body">
-                          ...
+                          Razmislite da li želite trajno brisanje panela?
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                           <form action="/admin/panel_edit/<%= p._id %>?_method=DELETE" method="post">
-                            <button class="button" style="background-color: #ff1e1e;">Izbriši</button>
+                            <button class="btn btn-danger">Izbriši</button>
                        </form>
                         </div>
                       </div>
                     </div>
-                  </div> 
-                      
-                      <% }%>
-                  </div> <% });%>
-                 
-                </div> 
-          </div>
-     
-         
+                  </div>
 
-         
+
+                  <% }%>
+                </div> 
+             
+              </div>
+                      
+                
+                 
+                   
+            <% });%>
+          </div> 
+          </div> 
+                
+
+          </div>  
+
         </div>
-      </div>
+      
     </div>
+    
     
  
       

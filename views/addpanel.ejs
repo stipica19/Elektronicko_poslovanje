@@ -55,7 +55,9 @@
       </nav>
     </header>
 <br><br><br><br><br><br><br><br>
-
+<div class="row d-flex login"> 
+<div class="col-lg-4"></div>
+  <div class="col-lg-4">   
    <form  action="/admin/addpanel" method="post" enctype="multipart/form-data"  style="margin:10px;">
    	<h1>Dodaj panel</h1><br>
   <div class="form-group">
@@ -63,8 +65,8 @@
     <input type="text" class="form-control" name="dimenzija" id="dimenzija" placeholder="Opis dimenzija">
   </div >
  
-    <div>
-      <select name="id_lokacija">
+  <div class="dropdown">
+      <select class="btn  dropdown-toggle" name="id_lokacija">
         <option value="" disabled selected>Odaberite lokaciju</option>
         <% locations.forEach((p)=>{%>
         <option value="<%= p._id %>" name="id_lokacija"> <%= p.grad %>  </option>
@@ -90,4 +92,6 @@
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+</div>
+</div>
     <%- include ('partials/footer.ejs') %>

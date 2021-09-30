@@ -47,23 +47,23 @@ jQuery(document).ready(function ($) {
           data.forEach((p, i) => {
             console.log(i);
             $(".product-item").append(`
-           
-              <img src="/public/${p.images}"  alt="slika">
-                <div class="down-content">
-                    <h4>Lokacija: ${p.id_lokacija.grad}> </h4>
-                    <h7>Dimenzije: ${p.dimenzija} </h7><br>
-                    <h7>Cijena : ${p.pocetna_cijena}> </h7><br>
-                    <h7>Broj slobodnih mjesta:  ${p.brojMjesta} </h7><br><br>
-                    <p>Opis: ${p.opis}> </p>
-                  <a href="/panel/${p._id}">
-                      <button class="button">Rezerviraj</button>
-                    </a>
-                </div>
+            <div class="row"  style="margin-bottom: 20px;">
+            <div class="col-md-5 float-left" ">
+            <img src="/public/${p.images}"   alt="slika">
+            </div>
+              <div class="col-md-7 float-right">
+                  <h4>Lokacija: ${p.id_lokacija.grad}  ${p.id_lokacija.adresa} </h4>
+                  <h7>Dimenzije: ${p.dimenzija} </h7><br>
+                  <h7>Cijena : ${p.pocetna_cijena} </h7><br>
+                  <h7>Broj slobodnih mjesta:  ${p.brojMjesta} </h7><br><br>
+                  <p>Opis: ${p.opis} </p>
+                <a href="/panel/${p._id}">
+                    <button class="button">Rezerviraj</button>
+                  </a>
+                  
+              </div>
+              </div>
           `);
-
-            /* $("tbody").append(
-              `<tr><td>${p.id_lokacija.grad}</td><td>${p.dimenzija}</td></tr>`
-            );*/
           });
         },
       });

@@ -17,10 +17,6 @@ const getLocation = asyncHandler(async (req, res) => {
   }
 });
 
-const paypal = asyncHandler(async (req, res) => {
-  res.render("user_profil.ejs");
-});
-
 //Dohvacanje svih lokacija
 const getLocations = asyncHandler(async (req, res) => {
   const locations = await Lokacija.find({});
@@ -113,7 +109,6 @@ var upload = multer({ storage: storage, limits: { fieldSize: 100000 } }).single(
 );
 
 const addPanel = asyncHandler(async (req, res) => {
-  console.log("addPanel =====================00000");
   const { dimenzija, id_lokacija, pocetna_cijena, brojMjesta, opis } = req.body;
 
   console.log(req.file);
@@ -158,8 +153,6 @@ const getPanelById = asyncHandler(async (req, res) => {
   const panel = await Panel.findById(req.params.id);
 
   if (panel) {
-    //vrijeme();
-    //res.json(panel);
     res.render("rezerviraj", {
       panel,
     });
@@ -173,7 +166,6 @@ const getPanels = asyncHandler(async (req, res) => {
   const panel = await Panel.find({}).populate("id_lokacija").exec();
 
   if (panel) {
-    // res.json(panel);
     res.render("indexx", {
       panel: panel,
     });
@@ -194,6 +186,7 @@ const getUpdatePanela = asyncHandler(async (req, res) => {
 
 const updatePanel = asyncHandler(async (req, res) => {
   console.log("update put panel");
+  const panel = await Panel.findById(req.params.id);
 
   if (panel) {
     panel.dimenzija = req.body.dimenzija || panel.dimenzija;
@@ -389,5 +382,4 @@ export {
   addRezervacija,
   getAddPanel,
   panelFunkcija,
-  paypal,
 };

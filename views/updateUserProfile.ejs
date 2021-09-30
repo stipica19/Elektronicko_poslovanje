@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="../../public/assets/css/fontawesome.css">
     <link rel="stylesheet" href="../../public/assets/css/templatemo-sixteen.css">
     <link rel="stylesheet" href="../../public/assets/css/owl.css">
+    <link rel="stylesheet" href="../../public/assets/css/user.css">
     </head>
     <body>
 	
@@ -72,13 +73,10 @@
        
             <section>				
                 <div id="container_demo" >
-                    <!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
-                    
-                   
-                    <div id="wrapper">
+                   <div id="wrapper">
                         <div id="registerr" >
                             <form  action="/user_profile_edit/<%= user._id%>?_method=PUT" method="post"> 
-                                <h1> Sign up </h1> 
+                                <h1> Uredi Profil </h1> 
                                 <p> 
                                     <label for="usernamesignup" class="uname" data-icon="u">Korisničko ime</label>
                                     <input id="usernamesignup" value="<%= user.name %>" name="name" required="required" type="text" placeholder="mysuperusername690" />
@@ -96,7 +94,7 @@
                                     <input id="passwordsignup_confirm" name="passwordsignup_confirm"  type="password" placeholder="eg. X8df!90EO"/>
                                 </p>
                                 <p class="signin button"> 
-									<input type="submit" value="Save"/> 
+									<input type="submit" value="Spremi"/> 
 								</p>
                             </form>
                         </div>

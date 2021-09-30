@@ -14,7 +14,6 @@ import {
   deletePanel,
   addRezervacija,
   getAddPanel,
-  paypal,
 } from "../controllers/adminController.js";
 
 import { protect, admin, checkUser } from "../middleware/authMiddleware.js";
@@ -31,24 +30,16 @@ router
   .get(protect, admin, getLocation) //radi
   .put(protect, admin, updateLocation);
 
-router.get("/pay", paypal);
-
 /*==========RUTE ZA PANEL ============ */
-router.route("/addpanel").get(getAddPanel).post(checkUser, admin, addPanel); //dodat adminu ovlast
-/*
 router
-  .route("/paneli")
-  .get(getPanels) //radi
-  .post(protect, addRezervacija);*/
-
-//router.route("/paneli/:id/dodavanjeRezervacije").post(protect, addRezervacija);
+  .route("/addpanel")
+  .get(checkUser, admin, getAddPanel)
+  .post(checkUser, admin, addPanel); //dodat adminu ovlast
 
 router
   .route("/panel_edit/:id")
   .get(getUpdatePanela)
   .delete(checkUser, admin, deletePanel)
   .put(checkUser, admin, updatePanel); //radi--admin
-//.get(getPanelById) //radi
-//admin
 
 export default router;

@@ -12,11 +12,9 @@ const protect = asyncHandler(async (req, res, next) => {
   ) {
     try {
       token = req.headers.authorization.split(" ")[1];
-
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
       req.user = await User.findById(decoded.id).select("-password");
-
       next();
     } catch (error) {
       console.error(error);
@@ -32,25 +30,20 @@ const protect = asyncHandler(async (req, res, next) => {
 });
 
 const checkUser = (req, res, next) => {
-  // console.log("CHECK_USER");
   const token = req.cookies.jwt;
   if (token) {
-    // console.log("CHECK_USER_token");
     jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
       if (err) {
-        //   console.log("ERRRR_1");
         res.locals.user = null;
         next();
       } else {
-        // console.log("ceck_userrrrr_find");
         let user = await User.findById(decodedToken.id);
-        //console.log("====", user);
+
         res.locals.user = user;
         next();
       }
     });
   } else {
-    // console.log("NULLLLLLLLLLLLLLLLLL");
     res.locals.user = null;
     next();
   }
@@ -60,7 +53,7 @@ const admin = (req, res, next) => {
   if (res.locals.user && res.locals.user.isAdmin) {
     next();
   } else {
-    res.status(401);
+    res.redirect("/");
     throw new Error("Not authorized as an admin");
   }
 };

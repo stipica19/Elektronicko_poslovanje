@@ -71,12 +71,8 @@
         </div>
       </nav>
     
-    </header>
-	
-        <div class="container">
-            <!-- Codrops top bar -->
+    </header>  <div class="container">
           <br><br><br><br><br><br>
-       
             <section>				
 
 				<div class="container">
@@ -101,8 +97,8 @@
         </div>
         
     <div class="row">    	
-      <h2>AKTIVNE REZERVACIJE</h2>	
     <table class="table table-hover">
+      <caption style="caption-side: top;">AKTIVNE REZERVACIJE</caption>	
     <thead class="thead-dark">
     <tr>
       <th scope="col">Dimenzija</th>
@@ -120,7 +116,7 @@
 	  <td><%= p.odDatuma.toLocaleDateString('en-GB') %> do <%= p.doDatuma.toLocaleDateString('en-GB') %></td>
       <td><%= p.cijena %> KM</td>
       <form action="/users/<%= p._id %>?_method=DELETE" method="post" >
-        <td><button type="submit" class="btn btn-danger btn-sm">Spremi</button></td>
+        <td><button type="submit" class="btn btn-danger btn-sm">Izbrisi</button></td>
         
       </form>
       
@@ -130,15 +126,14 @@
     </table>	   
     </div>
     <div class="row">    	
-      <h2>Zavrsene REZERVACIJE</h2>	
     <table class="table table-hover">
+    <caption style="caption-side: top;">ZAVRŠENE REZERVACIJE</caption>	
     <thead class="thead-dark">
     <tr>
       <th scope="col">Dimenzija</th>
       <th scope="col">Lokacija</th>
 	  <th scope="col">Trajanje</th>
       <th scope="col">Cijena</th>
-      <th scope="col">Edit</th>
     </tr>
     </thead>
     <tbody style="background-color:#f0f8ff;">
@@ -148,7 +143,6 @@
       <td><%= p.grad %></td>
 	  <td><%= p.odDatuma.toLocaleDateString('en-GB') %> do <%= p.doDatuma.toLocaleDateString('en-GB') %></td>
       <td><%= p.cijena %> KM</td>
-      <td><a href="#" class="btn btn-green btn-sm">Edit</a></td>
     </tr>
     <% });%>
     </tbody>

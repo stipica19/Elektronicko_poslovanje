@@ -52,47 +52,58 @@
     </header>
 <br><br><br><br><br><br><br><br>
 <% if(panel){%>
-
+  <div class="row">
           <div class="col-md-12">
             <div class="product-item col-md-12">
-              <img src="/public/<%= panel.images%>" class="col-md-3"  alt="slika">
-              <div class="down-content col-md-4">
+              <img src="/public/<%= panel.images%>" class="col-md-5 float-left"  alt="slika">
+              <div class="down-content col-md-7 float-right">
                 <h4>Lokacija: <%= panel.id_lokacija.grad %> </h4>
-                <h7>Dimenzije: <%= panel.dimenzija %>m </h7><br>
-                <h7>Cijena po mjesecu: <%= panel.pocetna_cijena %> KM </h7><br>
-                <h7>Broj slobodnih mjesta:   <%= panel.brojMjesta %></h7><br><br>
+                <h7>Dimenzija: <%= panel.dimenzija %>m </h7><br>
+                <h7>Cijena po danu: <%= panel.pocetna_cijena %> KM </h7><br>
+              
+                   <%if(panel.brojMjesta ===0){%>
+                    <h7 style="color: red; font-weight:bold;">Broj slobodnih mjesta: je popunjen </h7>
+                    <%}else{%>
+                      <h7>Broj slobodnih mjesta:  <%= panel.brojMjesta %>  </h7>
+                    
+                      <%}%>
+                  
+                
+                <br><br>
 				<p>Opis:<%= panel.opis %> </p>
+        <form action="/panel/<%= panel._id%>" method="POST" style="margin:10px;" >
+   
+          <div class="form-group">
+          <label>
+              Od:
+            <input id="odDatuma" type="date" name="odDatuma" min="2021-09-10" max="2022-12-12" required>
+            <span class="validity"></span>
+          </label>
+            </div>
+          <div class="form-group">
+          <label>
+              Do:
+            <input  id="doDatuma" type="date" name="doDatuma" min="2021-09-01" max="2022-12-12" required>
+            <span   class="validity"></span>
+          </label>
+          
+            </div>
+            <h4>UKUPNA CIJENA REZERAVIJE :  </h4> <h4 name="ukupna_cijena" class="ukupna_cijena"></h4>
+           <div class="form-group">
+              <input type="number" min="0.00" max="10000.00" class="form-control" id="cijenaa" name="ukupna_cijena" placeholder="Cijena">
+            </div>
+            <% if(panel.brojMjesta > 0){%>
+          <button type="submit" class="btn btn-primary">Rezerviraj</button><%};%>
+          <a href="/"  class="btn btn-danger">Odustani</a> 
+        </form>
               </div>
             </div>
           </div>  
+          
+        </div>
           <% };%>
 	
-   <form action="/panel/<%= panel._id%>" method="POST" style="margin:10px;">
-   
-  <div class="form-group">
-  <label>
-      Od:
-    <input id="odDatuma" type="date" name="odDatuma" min="2021-09-10" max="2022-12-12" required>
-    <span class="validity"></span>
-  </label>
-    </div>
-	<div class="form-group">
-	<label>
-      Do:
-    <input  id="doDatuma" type="date" name="doDatuma" min="2021-09-01" max="2022-12-12" required>
-    <span   class="validity"></span>
-  </label>
   
-    </div>
-    <h4>UKUPNA CIJENA REZERAVIJE :  </h4> <h4 name="ukupna_cijena" class="ukupna_cijena"></h4>
-   <div class="form-group">
-      
-      <input type="number" min="0.00" max="10000.00" class="form-control" id="cijenaa" name="ukupna_cijena" placeholder="Cijena">
-    </div>
-   
-
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
 
 <div id="paypal-button"></div>
 

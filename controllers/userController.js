@@ -230,17 +230,15 @@ const trazi = asyncHandler(async (req, res) => {
         match: { grad: regex },
         select: "grad",
       })
-      .exec(function (err, floorplan) {
-        const result = floorplan.filter((word) => word.id_lokacija != null);
+      .exec(function (err, lokacija) {
+        const result = lokacija.filter((word) => word.id_lokacija != null);
         console.log(result);
-
         if (err) {
           return res.send(err);
         }
-        if (!floorplan) {
+        if (!lokacija) {
           return res.status(401).json();
         }
-        //console.log(floorplan);
 
         res.status(200).json(result);
       });

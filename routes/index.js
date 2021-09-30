@@ -19,21 +19,16 @@ import { admin, checkUser, protect } from "../middleware/authMiddleware.js";
 const router = express.Router();
 
 router.route("/register").post(registerUser).get(protect, admin, getUsers);
-router.route("/").get(checkUser, getPanels, pocetna);
-router
-  .route("/user_profile_edit/:id")
-  .get(checkUser, getUserProfile)
-  .put(checkUser, updateUserProfile);
 
-router.post("/login", authUser);
-router.get("/logout", logout);
+router.route("/").get(checkUser, getPanels, pocetna); //pocetna stranica
+//Logiranje korisnika
 router.get("/login", login);
+router.post("/login", authUser);
+//Odjava korisnika
+router.get("/logout", logout);
 
+//Za pretrazivanje panela po gradovima
 router.post("/trazi", trazi);
-
-router.route("/").get(getPanels); //radi
-// .post(checkUser, addRezervacija);
-//router.route("/panel/:id").get(getPanelById); //radi
 
 router.route("/panel/:id").get(getPanelById).post(checkUser, addRezervacija);
 
